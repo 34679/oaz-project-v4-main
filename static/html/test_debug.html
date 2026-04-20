@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/static/js/api-client.js"></script>
+    <script src="/static/js/projects.js"></script>
+</head>
+<body>
+<div id="debug">Waiting...</div>
+<div id="projectsGrid" style="border: 1px solid red; min-height: 100px;">Grid here</div>
+<script>
+// Перехватываем console.log
+const originalLog = console.log;
+const logs = [];
+console.log = function(...args) {
+    logs.push(args.join(' '));
+    document.getElementById('debug').innerHTML = logs.join('<br>');
+    originalLog.apply(console, args);
+};
+
+// Перехватываем console.error
+const originalErr = console.error;
+console.error = function(...args) {
+    logs.push('ERROR: ' + args.join(' '));
+    document.getElementById('debug').innerHTML = logs.join('<br>');
+    originalErr.apply(console, args);
+};
+
+console.log('Page loaded');
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="result">Loading...</div>
+<script>
+fetch('http://localhost:5000/api/projects')
+  .then(r => r.json())
+  .then(d => { document.getElementById('result').textContent = JSON.stringify(d).slice(0, 500); })
+  .catch(e => { document.getElementById('result').textContent = 'Error: ' + e.message; });
+</script>
+</body>
+</html>

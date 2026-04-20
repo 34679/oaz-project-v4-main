@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Океанский Альянс Защиты (ОАЗ)</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- НАВИГАЦИЯ -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/static/html/index.html">
+                <i class="fas fa-water" style="color: #A0CDFF;"></i> ОА<span>З</span>
+            </a>
+            <div class="d-flex align-items-center order-lg-last">
+                <button class="theme-toggle" id="themeToggle" title="Переключить тему">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/static/html/index.html">Главная</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="projectsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Проекты
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
+                            <li><a class="dropdown-item" href="/static/html/projects.html"><i class="fas fa-list"></i> Все проекты</a></li>
+                            <li><a class="dropdown-item" href="/static/html/projects.html?filter=active"><i class="fas fa-play-circle"></i> Текущие проекты</a></li>
+                            <li><a class="dropdown-item" href="/static/html/projects.html?filter=planned"><i class="fas fa-calendar-alt"></i> Запланированные</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/static/html/donate.html"><i class="fas fa-donate"></i> Поддержать проект</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/static/html/donate.html">Благотворительность</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/static/html/catalog.html">Новости</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="authNav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/static/html/login.html">
+                            <i class="fas fa-sign-in-alt"></i> Вход/Регистрация
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION С ВИДЕОФОНОМ + FALLBACK -->
+    <section class="hero-section">
+        <div class="hero-video-wrapper" id="heroVideoWrapper">
+            <video class="hero-video" id="heroVideo" autoplay muted loop playsinline>
+                <source src="/static/video/ocean-bg.mp4" type="video/mp4">
+            </video>
+            <!-- CSS Fallback фон -->
+            <div class="hero-fallback-bg"></div>
+            <!-- Затемнение для читаемости текста -->
+            <div class="hero-overlay"></div>
+        </div>
+        <!-- Контент -->
+        <div class="container hero-content">
+            <h1 class="hero-title">Океанский Альянс Защиты</h1>
+            <p class="hero-subtitle">
+                Мы объединяем ученых, волонтеров и неравнодушных людей, 
+                чтобы спасти морские экосистемы.
+            </p>
+        </div>
+    </section>
+
+    <!-- СЛАЙДЕР НОВОСТЕЙ -->
+    <section class="slider-section">
+        <div class="container">
+            <h2 class="section-title reveal">Наши новости</h2>
+            <div class="slider-container">
+                <div class="news-slider">
+                    <div class="slide">
+                        <img src="/static/uploads/beautiful-photo-sea-waves.jpg" alt="Очистка побережья">
+                        <div class="slide-content">
+                            <h3 class="slide-title">Очистка побережья</h3>
+                            <a href="/static/html/card.html?id=1" class="slide-btn">Подробнее</a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="/static/uploads/seal-beach-dune-island-near-helgoland.jpg" alt="Спасение тюленей">
+                        <div class="slide-content">
+                            <h3 class="slide-title">Спасение тюленей</h3>
+                            <a href="/static/html/card.html?id=2" class="slide-btn">Подробнее</a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="/static/uploads/algae-marine-plants.jpg" alt="Исследование кораллов">
+                        <div class="slide-content">
+                            <h3 class="slide-title">Исследование кораллов</h3>
+                            <a href="/static/html/card.html?id=3" class="slide-btn">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-arrow prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="slider-arrow next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О НАС -->
+    <section class="section about-section">
+        <div class="container">
+            <h2 class="section-title reveal">О нас</h2>
+            <p class="about-text reveal">
+                «Океанский Альянс Защиты» (ОАЗ) — независимая некоммерческая организация, 
+                работающая на стыке науки, права и общественных инициатив. Мы объединяем 
+                морских биологов, экологов, юристов и волонтеров, чтобы противостоять 
+                главным угрозам российских морских вод: перелову, пластиковому загрязнению, 
+                разрушению биоразнообразия и климатическим изменениям.
+            </p>
+        </div>
+    </section>
+
+    <!-- НАША МИССИЯ -->
+    <section class="section mission-section">
+        <div class="container">
+            <h2 class="section-title reveal">Наша миссия</h2>
+            <p class="mission-text reveal animate-float">
+                «Сделать океан снова живым. Через науку — к фактам, через факты — к решениям, 
+                через решения — к реальным изменениям.»
+            </p>
+        </div>
+    </section>
+
+    <!-- АККОРДЕОН FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title reveal">Часто задаваемые вопросы</h2>
+            <div class="accordion">
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="fas fa-question-circle" style="color: var(--accent-pink); margin-right: 10px;"></i> Как я могу стать волонтером?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Чтобы стать волонтером, зарегистрируйтесь на нашем сайте, отметив галочку «Волонтер» в форме регистрации. После этого вы сможете присоединяться к любым активным проектам через страницу «Проекты».
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="fas fa-hand-holding-usd" style="color: var(--accent-pink); margin-right: 10px;"></i> Куда идут мои пожертвования?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Все пожертвования идут напрямую на реализацию выбранных вами проектов: закупку оборудования, организацию экспедиций, спасение животных и образовательные программы. Вы всегда можете отследить прогресс проекта в вашем личном кабинете.
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="fas fa-calendar-check" style="color: var(--accent-pink); margin-right: 10px;"></i> Как часто проходят акции по очистке побережья?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Акции по очистке побережья проводятся ежемесячно в теплый сезон (с мая по сентябрь) и по мере необходимости в зимний период. Следите за расписанием в разделе «Новости» или подпишитесь на наши уведомления.
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="fas fa-receipt" style="color: var(--accent-pink); margin-right: 10px;"></i> Можно ли получить налоговый вычет?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Да! Мы являемся зарегистрированной некоммерческой организацией. После каждого пожертвования вы получаете электронное подтверждение на email, которое можно использовать для получения социального налогового вычета.
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="fas fa-users" style="color: var(--accent-pink); margin-right: 10px;"></i> Есть ли возрастные ограничения для участия?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Основные программы доступны для участников старше 16 лет. Для несовершеннолетних (14-16 лет) требуется согласие родителей. Также у нас есть специальные образовательные программы для школьников младшего возраста.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- НАША КОМАНДА -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title reveal">Наша команда</h2>
+            <div class="team-grid">
+                <div class="team-card reveal">
+                    <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div class="team-name">Алексей Морозов</div>
+                    <div class="team-role">Директор</div>
+                    <div class="team-desc">Руководитель организации с 15-летним опытом в сфере морской экологии</div>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar"><i class="fas fa-microscope"></i></div>
+                    <div class="team-name">Елена Водянова</div>
+                    <div class="team-role">Главный биолог</div>
+                    <div class="team-desc">Кандидат биологических наук, специалист по морским млекопитающим</div>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar"><i class="fas fa-balance-scale"></i></div>
+                    <div class="team-name">Дмитрий Волков</div>
+                    <div class="team-role">Юрист</div>
+                    <div class="team-desc">Защита морских территорий на законодательном уровне</div>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="team-name">Анна Светлова</div>
+                    <div class="team-role">Координатор волонтеров</div>
+                    <div class="team-desc">Организация экологических мероприятий и образовательных программ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- НАМ НУЖНА ВАША ПОМОЩЬ -->
+    <section class="section help-section">
+        <div class="container">
+            <h2 class="section-title reveal">Нам нужна ваша помощь</h2>
+            <div class="help-buttons">
+                <a href="/static/html/donate.html" class="help-btn help-btn-charity">
+                    <i class="fas fa-heart"></i> Благотворительность
+                </a>
+                <a href="/static/html/register.html" class="help-btn help-btn-volunteer">
+                    <i class="fas fa-hands-helping"></i> Волонтерство
+                </a>
+            </div>
+            <div class="help-stats">
+                <div class="stat-item reveal">
+                    <div class="stat-value" id="totalDonations">0</div>
+                    <div class="stat-label">Всего пожертвовано руб.</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-value" id="totalHours">0</div>
+                    <div class="stat-label">Всего волонтерских часов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- РЕКЛАМНЫЙ БЛОК -->
+    <section class="ad-section">
+        <div class="container">
+            <div class="ad-container reveal">
+                <div class="ad-content">
+                    <h3><i class="fas fa-bullhorn"></i> Стань частью изменений</h3>
+                    <p>Присоединяйся к тысячам неравнодушных людей. Каждое пожертвование — шаг к чистым морям.</p>
+                    <a href="/static/html/donate.html" class="ad-btn">Поддержать сейчас</a>
+                </div>
+                <div class="ad-image"><i class="fas fa-water"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЯНДЕКС КАРТА -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title reveal">Наш офис</h2>
+            <div class="map-container reveal">
+                <iframe src="https://yandex.ru/map-widget/v1/-/CBu7UB~LxA" allowfullscreen></iframe>
+                <div class="map-info">
+                    <div class="map-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г. Калининград, ул. Профессора Баранова, 12</span>
+                    </div>
+                    <div class="map-info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Пн-Пт: 9:00 - 18:00</span>
+                    </div>
+                    <div class="map-info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (4012) 55-33-77</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="container">
+            <h2 class="footer-title">Как нас найти и связаться</h2>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-map-marker-alt"></i> Адрес</h4>
+                    <p>
+                        Центральный офис<br>
+                        г. Калининград, ул.<br>
+                        Профессора Баранова, 12,<br>
+                        236000
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-phone"></i> Контакты</h4>
+                    <p>
+                        Телефон:<br>
+                        <a href="tel:+74012553377">+7 (4012) 55-33-77</a><br><br>
+                        Email:<br>
+                        <a href="mailto:info@oaz-ocean.ru">info@oaz-ocean.ru</a>
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-globe"></i> Социальные сети</h4>
+                    <p>
+                        Сайт:<br>
+                        <a href="https://www.oaz-ocean.ru">www.oaz-ocean.ru</a><br><br>
+                        VK: <a href="https://vk.com/oaz_ocean">@oaz_ocean</a><br>
+                        Telegram: <a href="https://t.me/oaz_ocean">t.me/oaz_ocean</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Океанский Альянс Защиты (ОАЗ). Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- API Client -->
+    <script src="/static/js/api-client.js"></script>
+    <!-- Custom JS -->
+    <script src="/static/js/main.js"></script>
+    <script>
+        // ============================================
+        // ВИДЕО ФОН — проверка и fallback
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('heroVideo');
+            const wrapper = document.getElementById('heroVideoWrapper');
+            
+            if (video) {
+                // Обработка ошибок загрузки видео
+                video.addEventListener('error', function() {
+                    console.warn('Видео не загрузилось, используем CSS fallback');
+                    wrapper.classList.add('has-video-error');
+                });
+                
+                // Если видео не может воспроизвестись (офлайн)
+                video.addEventListener('stalled', function() {
+                    wrapper.classList.add('has-video-error');
+                });
+                
+                // Проверяем, загрузилось ли видео через 3 секунды
+                setTimeout(function() {
+                    if (video.readyState === 0) {
+                        wrapper.classList.add('has-video-error');
+                    }
+                }, 3000);
+            }
+        });
+
+        // ============================================
+        // АККОРДЕОН
+        // ============================================
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const allItems = document.querySelectorAll('.accordion-item');
+            
+            // Закрываем все остальные
+            allItems.forEach(function(otherItem) {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Переключаем текущий
+            item.classList.toggle('active');
+        }
+
+        // ============================================
+        // ТЕМНАЯ ТЕМА
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            // Проверяем сохранённую тему
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                
+                if (isDark) {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            });
+        });
+
+        // ============================================
+        // АНИМАЦИИ ПРИ СКРОЛЛЕ (Reveal)
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            revealElements.forEach(function(el) {
+                revealObserver.observe(el);
+            });
+        });
+
+        // ============================================
+        // СТАТИСТИКА
+        // ============================================
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadStats();
+        });
+        
+        async function loadStats() {
+            try {
+                const stats = await API.getStats();
+                
+                document.getElementById('totalDonations').textContent = formatNumber(stats.total_donations || 0);
+                document.getElementById('totalHours').textContent = formatNumber(stats.total_volunteer_hours || 0);
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+        
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + ' млн';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(0) + ' тыс';
+            }
+            return num.toString();
+        }
+    </script>
+</body>
+</html>

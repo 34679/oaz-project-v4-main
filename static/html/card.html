@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточка - ОАЗ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/static/html/index.html"><i class="fas fa-water" style="color: #A0CDFF;"></i> ОА<span>З</span></a>
+            <div class="d-flex align-items-center order-lg-last">
+                <button class="theme-toggle" id="themeToggle" title="Переключить тему"><i class="fas fa-moon"></i></button>
+                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/static/html/index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/projects.html">Проекты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/donate.html">Благотворительность</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/catalog.html">Новости</a></li>
+                </ul>
+                <ul class="navbar-nav" id="authNav">
+                    <li class="nav-item"><a class="nav-link" href="/static/html/login.html"><i class="fas fa-sign-in-alt"></i> Вход/Регистрация</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="card-detail-section">
+        <div class="card-detail-container">
+            <img src="" alt="" class="card-detail-image" id="cardImage">
+            <h1 class="card-detail-title" id="cardTitle">Загрузка...</h1>
+            <div class="card-detail-content" id="cardContent">Загрузка содержимого...</div>
+            <div class="card-detail-actions">
+                <a href="/static/html/catalog.html" class="btn-back"><i class="fas fa-arrow-left"></i> Назад</a>
+                <a href="/static/html/donate.html" class="btn-charity"><i class="fas fa-heart"></i> Поддержать</a>
+            </div>
+            <div class="comments-section">
+                <h3 class="comments-title"><i class="fas fa-comments"></i> Комментарии</h3>
+                <div id="commentsContainer">
+                    <!-- Форма комментария (показывается только авторизованным) -->
+                    <div class="comment-form" id="commentForm" style="display: none;">
+                        <textarea id="commentText" placeholder="Напишите комментарий..."></textarea>
+                        <button onclick="submitComment()"><i class="fas fa-paper-plane"></i> Отправить</button>
+                    </div>
+                    <!-- Приглашение войти (показывается неавторизованным) -->
+                    <div class="login-prompt" id="loginPrompt" style="display: none;">
+                        <i class="fas fa-lock" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 10px;"></i>
+                        <p>Чтобы оставить комментарий, необходимо <a href="/static/html/login.html" style="color: var(--primary-blue); font-weight: bold;">войти в систему</a></p>
+                    </div>
+                    <div id="commentsList"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api-client.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/card.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                const icon = document.querySelector('#themeToggle i');
+                if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            }
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const icon = this.querySelector('i');
+                    if (isDark) {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                        icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                        icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

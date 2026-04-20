@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/static/js/api-client.js"></script>
+</head>
+<body>
+<div id="result">Loading projects...</div>
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        await API.initDefaultData();
+        const projects = await API.getProjects();
+        document.getElementById('result').innerHTML = 
+            '<h3>Loaded ' + projects.length + ' projects</h3>' +
+            '<pre>' + JSON.stringify(projects, null, 2).slice(0, 2000) + '</pre>';
+    } catch (e) {
+        document.getElementById('result').textContent = 'Error: ' + e.message;
+    }
+});
+</script>
+</body>
+</html>

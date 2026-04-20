@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - ОАЗ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .profile-section { padding: 40px 0; background-color: var(--white); min-height: 100vh; transition: background-color 0.3s; }
+        .profile-header { text-align: center; margin-bottom: 30px; padding: 30px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%); border-radius: 20px; color: white; }
+        .profile-avatar { width: 100px; height: 100px; background-color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 3rem; color: var(--primary-blue); transition: transform 0.3s; }
+        .profile-avatar:hover { transform: scale(1.1) rotate(10deg); }
+        .profile-name { font-size: 1.8rem; font-weight: bold; color: white; }
+        .profile-role { font-size: 1rem; opacity: 0.9; margin-top: 5px; }
+        .book-tabs { display: flex; justify-content: center; margin-bottom: 0; background-color: var(--white); border-radius: 20px 20px 0 0; overflow: hidden; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
+        .book-tab { flex: 1; padding: 20px 30px; cursor: pointer; transition: all 0.3s; font-weight: 600; font-size: 1.1rem; text-align: center; border: none; background: none; }
+        .book-tab:first-child { background-color: var(--primary-blue); color: var(--white); }
+        .book-tab:last-child { background-color: var(--accent-pink); color: var(--white); }
+        .book-tab:not(.active) { opacity: 0.7; }
+        .book-tab:not(.active):hover { opacity: 1; }
+        .book-content { padding: 40px; border-radius: 0 0 20px 20px; min-height: 400px; }
+        #volunteerBook { background-color: var(--primary-blue); }
+        #donorBook { background-color: var(--accent-pink); display: none; }
+        .projects-section-title { color: var(--white); font-size: 1.1rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px dashed rgba(255,255,255,0.3); }
+        .projects-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .book-stats { display: flex; justify-content: center; gap: 40px; color: var(--white); flex-wrap: wrap; padding-top: 20px; border-top: 2px dashed rgba(255,255,255,0.3); }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: bold; }
+        .stat-label { font-size: 0.9rem; opacity: 0.9; }
+        .empty-projects { text-align: center; color: rgba(255,255,255,0.8); padding: 40px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/static/html/index.html">
+                <i class="fas fa-water" style="color: #A0CDFF;"></i> ОА<span>З</span>
+            </a>
+            <div class="d-flex align-items-center order-lg-last">
+                <button class="theme-toggle" id="themeToggle" title="Переключить тему">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/static/html/index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/projects.html">Проекты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/donate.html">Благотворительность</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/catalog.html">Новости</a></li>
+                </ul>
+                <ul class="navbar-nav" id="authNav"></ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-header animate-slide-up">
+                <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                <div class="profile-name" id="profileName">Пользователь</div>
+                <div class="profile-role" id="profileRole">Участник</div>
+            </div>
+            <div class="book-tabs">
+                <button class="book-tab active" id="volunteerTab" onclick="switchBook('volunteer')"><i class="fas fa-hands-helping"></i> Книжка волонтера</button>
+                <button class="book-tab" id="donorTab" onclick="switchBook('donor')"><i class="fas fa-heart"></i> Книжка благотворителя</button>
+            </div>
+            <div class="book-content" id="volunteerBook">
+                <div id="volunteerCurrentSection">
+                    <h4 class="projects-section-title"><i class="fas fa-play-circle"></i> Текущие проекты</h4>
+                    <div class="projects-list" id="volunteerCurrentProjects"></div>
+                </div>
+                <div id="volunteerPlannedSection">
+                    <h4 class="projects-section-title"><i class="fas fa-calendar-alt"></i> Запланированные проекты</h4>
+                    <div class="projects-list" id="volunteerPlannedProjects"></div>
+                </div>
+                <div id="volunteerArchiveSection">
+                    <h4 class="projects-section-title"><i class="fas fa-archive"></i> Архивные проекты</h4>
+                    <div class="projects-list" id="volunteerArchiveProjects"></div>
+                </div>
+                <div class="book-stats">
+                    <div class="stat"><div class="stat-number" id="volunteerTotalProjects">0</div><div class="stat-label">Всего проектов</div></div>
+                    <div class="stat"><div class="stat-number" id="volunteerTotalHours">0</div><div class="stat-label">Всего часов</div></div>
+                </div>
+            </div>
+            <div class="book-content" id="donorBook">
+                <div id="donorCurrentSection">
+                    <h4 class="projects-section-title"><i class="fas fa-play-circle"></i> Текущие проекты</h4>
+                    <div class="projects-list" id="donorCurrentProjects"></div>
+                </div>
+                <div id="donorPlannedSection">
+                    <h4 class="projects-section-title"><i class="fas fa-calendar-alt"></i> Запланированные проекты</h4>
+                    <div class="projects-list" id="donorPlannedProjects"></div>
+                </div>
+                <div id="donorArchiveSection">
+                    <h4 class="projects-section-title"><i class="fas fa-archive"></i> Архивные проекты</h4>
+                    <div class="projects-list" id="donorArchiveProjects"></div>
+                </div>
+                <div class="book-stats">
+                    <div class="stat"><div class="stat-number" id="donorTotalProjects">0</div><div class="stat-label">Всего проектов</div></div>
+                    <div class="stat"><div class="stat-number" id="donorTotalAmount">0</div><div class="stat-label">Всего пожертвовано (руб)</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api-client.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/profile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                const icon = document.querySelector('#themeToggle i');
+                if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            }
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const icon = this.querySelector('i');
+                    if (isDark) {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                        icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                        icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+                    }
+                });
+            }
+            await new Promise(function(r) { setTimeout(r, 100); });
+            await initProfile();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект - ОАЗ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/static/html/index.html"><i class="fas fa-water" style="color: #A0CDFF;"></i> ОА<span>З</span></a>
+            <div class="d-flex align-items-center order-lg-last">
+                <button class="theme-toggle" id="themeToggle" title="Переключить тему"><i class="fas fa-moon"></i></button>
+                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/static/html/index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/projects.html">Проекты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/donate.html">Благотворительность</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/catalog.html">Новости</a></li>
+                </ul>
+                <ul class="navbar-nav" id="authNav">
+                    <li class="nav-item"><a class="nav-link" href="/static/html/login.html"><i class="fas fa-sign-in-alt"></i> Вход/Регистрация</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero с изображением проекта -->
+    <section class="project-hero" style="position: relative; height: 350px; overflow: hidden;">
+        <img src="" alt="" id="projectImage" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+            <div class="container">
+                <span id="projectStatus" class="status-badge" style="margin-bottom: 15px; display: inline-block;">Статус</span>
+                <h1 id="projectTitle" style="color: #FCFCFC; font-size: 2.5rem; font-weight: bold; margin: 0;">Загрузка...</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основная информация -->
+    <section style="padding: 40px 0; background: var(--light-blue); transition: background-color 0.3s;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+                <!-- Левая колонка - описание -->
+                <div class="project-info-left" style="background: var(--card-bg); border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px var(--shadow-color); border: 2px solid var(--border-color); transition: all 0.3s;">
+                    <h3 style="color: var(--primary-blue); margin-bottom: 15px; font-size: 1.3rem; font-weight: bold;"><i class="fas fa-info-circle"></i> Описание</h3>
+                    <p id="projectDescription" style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; margin-bottom: 20px;">Загрузка...</p>
+                    <hr style="border-color: var(--border-color); margin: 20px 0;">
+                    <div id="projectFullDescription" style="color: var(--text-secondary); line-height: 1.7;"></div>
+                </div>
+
+                <!-- Правая колонка - статистика -->
+                <div class="project-info-right">
+                    <!-- Прогресс сборa -->
+                    <div style="background: var(--card-bg); border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px var(--shadow-color); border: 2px solid var(--border-color); margin-bottom: 20px; transition: all 0.3s;">
+                        <h4 style="color: var(--black); margin-bottom: 15px; font-size: 1.1rem;"><i class="fas fa-donate" style="color: var(--accent-pink);"></i> Сбор средств</h4>
+                        <div style="background: #e0e0e0; border-radius: 10px; height: 20px; overflow: hidden; margin-bottom: 10px;">
+                            <div id="projectProgress" style="background: linear-gradient(90deg, var(--accent-pink), var(--primary-blue)); height: 100%; border-radius: 10px; transition: width 0.5s ease; width: 0%;"></div>
+                        </div>
+                        <p id="projectAmounts" style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">0 / 0 руб.</p>
+                    </div>
+
+                    <!-- Статистика -->
+                    <div style="background: var(--card-bg); border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px var(--shadow-color); border: 2px solid var(--border-color); transition: all 0.3s;">
+                        <h4 style="color: var(--black); margin-bottom: 15px; font-size: 1.1rem;"><i class="fas fa-chart-bar" style="color: var(--primary-blue);"></i> Информация</h4>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: var(--text-muted);"><i class="fas fa-calendar-alt"></i> Начало</span>
+                                <span id="projectStartDate" style="color: var(--black); font-weight: 500;">-</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: var(--text-muted);"><i class="fas fa-calendar-check"></i> Окончание</span>
+                                <span id="projectEndDate" style="color: var(--black); font-weight: 500;">-</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: var(--text-muted);"><i class="fas fa-clock"></i> Волонтерских часов</span>
+                                <span id="projectHours" style="color: var(--black); font-weight: 500;">0 ч.</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: var(--text-muted);"><i class="fas fa-users"></i> Участников</span>
+                                <span id="projectParticipants" style="color: var(--black); font-weight: 500;">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кнопки действий -->
+    <section style="padding: 30px 0; background: var(--white); transition: background-color 0.3s;">
+        <div class="container">
+            <div class="project-actions" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="/static/html/projects.html" class="btn-back" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-arrow-left"></i> Назад к проектам
+                </a>
+                <button class="btn-charity" id="joinBtn" onclick="handleJoinProject()" style="border: none; cursor: pointer;">
+                    <i class="fas fa-hand-holding-heart"></i> Присоединиться
+                </button>
+                <button class="btn-charity" id="donateBtn" onclick="handleDonateProject()" style="border: none; cursor: pointer; background: linear-gradient(135deg, var(--accent-pink), #e0456a);">
+                    <i class="fas fa-donate"></i> Поддержать проект
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Комментарии к проекту -->
+    <section style="padding: 40px 0; background: var(--light-blue); transition: background-color 0.3s;">
+        <div class="container">
+            <h3 style="color: var(--black); font-size: 1.5rem; font-weight: bold; margin-bottom: 25px; text-align: center;">
+                <i class="fas fa-comments" style="color: var(--primary-blue);"></i> Комментарии к проекту
+            </h3>
+
+            <!-- Форма комментария (только для авторизованных) -->
+            <div id="projectCommentForm" style="max-width: 700px; margin: 0 auto 30px; display: none;">
+                <div style="background: var(--card-bg); border-radius: 15px; padding: 20px; box-shadow: 0 3px 15px var(--shadow-color); border: 2px solid var(--border-color);">
+                    <textarea id="projectCommentText" placeholder="Напишите ваш комментарий..." 
+                        style="width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 1rem; resize: vertical; min-height: 80px; background: var(--white); color: var(--black); outline: none; transition: border-color 0.3s; font-family: 'Roboto', sans-serif;"></textarea>
+                    <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                        <button onclick="addProjectComment()" style="background: var(--primary-blue); color: white; border: none; padding: 10px 25px; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s;">
+                            <i class="fas fa-paper-plane"></i> Отправить
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Приглашение войти -->
+            <div id="projectLoginPrompt" style="max-width: 700px; margin: 0 auto 30px; background: var(--card-bg); border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 3px 15px var(--shadow-color); border: 2px solid var(--border-color); display: none;">
+                <i class="fas fa-lock" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 10px;"></i>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Чтобы оставить комментарий, необходимо войти в систему</p>
+                <a href="/static/html/login.html" style="background: var(--primary-blue); color: white; text-decoration: none; padding: 10px 25px; border-radius: 25px; display: inline-block; font-weight: 500; transition: all 0.3s;">Войти</a>
+            </div>
+
+            <!-- Список комментариев -->
+            <div id="projectCommentsList" style="max-width: 700px; margin: 0 auto;">
+                <p style="text-align: center; color: var(--text-muted); padding: 30px;">Загрузка комментариев...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно подтверждения -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Подтверждение</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmMessage">Вы уверены?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" id="confirmActionBtn">Подтвердить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 ОАЗ - Организация по Активному Защитничеству. Все права защищены.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-vk"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api-client.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/project-detail.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                const icon = document.querySelector('#themeToggle i');
+                if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            }
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const icon = this.querySelector('i');
+                    if (isDark) {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                        icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                        icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+                    }
+                });
+            }
+            updateAuthUI();
+        });
+    </script>
+</body>
+</html>

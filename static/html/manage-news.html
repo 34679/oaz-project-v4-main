@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление новостями - ОАЗ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/static/html/index.html"><i class="fas fa-water" style="color: #A0CDFF;"></i> ОА<span>З</span></a>
+            <div class="d-flex align-items-center order-lg-last">
+                <button class="theme-toggle" id="themeToggle" title="Переключить тему"><i class="fas fa-moon"></i></button>
+                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/static/html/index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/projects.html">Проекты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/donate.html">Благотворительность</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/catalog.html">Новости</a></li>
+                </ul>
+                <ul class="navbar-nav" id="authNav"></ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="manage-section">
+        <div class="container">
+            <div class="manage-header">
+                <h2 class="manage-title">Управление новостями</h2>
+                <button class="btn-add" onclick="showAddNewsModal()"><i class="fas fa-plus"></i> Добавить новость</button>
+            </div>
+            <!-- Фильтры и сортировка -->
+            <div class="filters-bar" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;">
+                <div class="search-box" style="flex: 1; min-width: 200px;">
+                    <input type="text" id="newsSearchInput" placeholder="Поиск по заголовку..." 
+                        style="width: 100%; padding: 10px 15px; border: 2px solid var(--primary-blue); border-radius: 10px; font-size: 1rem; outline: none; transition: all 0.3s; background: var(--white); color: var(--black);"
+                        onkeyup="applyNewsFilters()">
+                </div>
+                <select id="newsCategoryFilter" onchange="applyNewsFilters()" 
+                    style="padding: 10px 15px; border: 2px solid var(--primary-blue); border-radius: 10px; font-size: 1rem; cursor: pointer; min-width: 180px; background: var(--white); color: var(--black);">
+                    <option value="">Все категории</option>
+                    <option value="news">Новости</option>
+                    <option value="work">Проделанная работа</option>
+                    <option value="help">Помощь</option>
+                </select>
+                <select id="newsSortFilter" onchange="applyNewsFilters()" 
+                    style="padding: 10px 15px; border: 2px solid var(--primary-blue); border-radius: 10px; font-size: 1rem; cursor: pointer; min-width: 180px; background: var(--white); color: var(--black);">
+                    <option value="date-desc">Сначала новые</option>
+                    <option value="date-asc">Сначала старые</option>
+                    <option value="title-asc">По названию (А-Я)</option>
+                    <option value="title-desc">По названию (Я-А)</option>
+                </select>
+            </div>
+            <div id="newsList"></div>
+        </div>
+    </section>
+
+    <!-- Модальное окно (центрированное) -->
+    <div class="modal-overlay" id="newsModal">
+        <div class="modal">
+            <h3 class="modal-title" id="modalTitle">Добавить новость</h3>
+            <form class="modal-form" id="newsForm" onsubmit="saveNews(event)">
+                <input type="hidden" id="newsId">
+                <div class="form-group">
+                    <label>Заголовок</label>
+                    <input type="text" id="newsTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <input type="text" id="newsDescription" required>
+                </div>
+                <div class="form-group">
+                    <label>Содержание</label>
+                    <textarea id="newsContent" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Категория</label>
+                    <select id="newsCategory">
+                        <option value="news">Новости</option>
+                        <option value="work">Проделанная работа</option>
+                        <option value="help">Помощь</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-save">Сохранить</button>
+                    <button type="button" class="btn-cancel" onclick="closeNewsModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api-client.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/manage-news.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                const icon = document.querySelector('#themeToggle i');
+                if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            }
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const icon = this.querySelector('i');
+                    if (isDark) {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                        icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                        icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+                    }
+                });
+            }
+            updateAuthUI();
+            if (!AppState.currentUser || AppState.currentUser.role !== 'admin') {
+                window.location.href = '/static/html/login.html';
+            }
+            loadNewsList();
+        });
+    </script>
+</body>
+</html>

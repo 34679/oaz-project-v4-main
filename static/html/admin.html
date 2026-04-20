@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Администратор - ОАЗ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/static/html/index.html"><i class="fas fa-water" style="color: #A0CDFF;"></i> ОА<span>З</span></a>
+            <div class="d-flex align-items-center order-lg-last">
+                <button class="theme-toggle" id="themeToggle" title="Переключить тему"><i class="fas fa-moon"></i></button>
+                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/static/html/index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/projects.html">Проекты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/donate.html">Благотворительность</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/static/html/catalog.html">Новости</a></li>
+                </ul>
+                <ul class="navbar-nav" id="authNav"></ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="admin-section">
+        <div class="container">
+            <div class="admin-header animate-slide-up">
+                <div class="admin-avatar"><i class="fas fa-user-shield"></i></div>
+                <h1 class="admin-title">Панель администратора</h1>
+            </div>
+            <div class="admin-buttons">
+                <a href="/static/html/manage-news.html" class="admin-btn animate-slide-up delay-100"><i class="fas fa-newspaper"></i> Управление новостями</a>
+                <a href="/static/html/admin-projects.html" class="admin-btn animate-slide-up delay-200"><i class="fas fa-project-diagram"></i> Управление проектами</a>
+                <a href="/static/html/manage-news.html" class="admin-btn animate-slide-up delay-300"><i class="fas fa-comments"></i> Управление комментариями</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api-client.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                const icon = document.querySelector('#themeToggle i');
+                if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            }
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const icon = this.querySelector('i');
+                    if (isDark) {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                        icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                        icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+                    }
+                });
+            }
+            updateAuthUI();
+            if (!AppState.currentUser || AppState.currentUser.role !== 'admin') {
+                window.location.href = '/static/html/login.html';
+            }
+        });
+    </script>
+</body>
+</html>
