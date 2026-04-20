@@ -1,0 +1,90 @@
+erDiagram
+    USERS {
+        INTEGER id PK
+        TEXT first_name
+        TEXT last_name
+        TEXT email
+        TEXT password
+        TEXT role
+        INTEGER is_volunteer
+        INTEGER is_donor
+        TIMESTAMP created_at
+    }
+
+    PROJECTS {
+        INTEGER id PK
+        TEXT name
+        TEXT description
+        TEXT full_description
+        TEXT image
+        DATE start_date
+        DATE end_date
+        TEXT status
+        INTEGER target_amount
+        INTEGER collected_amount
+        INTEGER donation_amount
+        INTEGER total_hours
+        INTEGER manager_id FK
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+
+    PROJECT_PARTICIPANTS {
+        INTEGER id PK
+        INTEGER project_id FK
+        INTEGER user_id FK
+        TEXT role
+        INTEGER hours_contributed
+        INTEGER amount_donated
+        TIMESTAMP joined_at
+    }
+
+    NEWS {
+        INTEGER id PK
+        INTEGER project_id FK
+        TEXT title
+        TEXT description
+        TEXT content
+        TEXT image
+        TEXT category
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+
+    COMMENTS {
+        INTEGER id PK
+        INTEGER news_id FK
+        INTEGER user_id FK
+        TEXT content
+        TIMESTAMP created_at
+    }
+
+    DONATIONS {
+        INTEGER id PK
+        INTEGER user_id FK
+        INTEGER project_id FK
+        INTEGER amount
+        TEXT status
+        TIMESTAMP created_at
+    }
+
+    VOLUNTEER_HOURS {
+        INTEGER id PK
+        INTEGER user_id FK
+        INTEGER project_id FK
+        INTEGER hours
+        DATE date
+        TIMESTAMP created_at
+    }
+
+    USERS ||--o{ PROJECT_PARTICIPANTS : "участвует"
+    USERS ||--o{ DONATIONS : "делает"
+    USERS ||--o{ VOLUNTEER_HOURS : "работает"
+    USERS ||--o{ COMMENTS : "пишет"
+
+    PROJECTS ||--o{ PROJECT_PARTICIPANTS : "имеет"
+    PROJECTS ||--o{ NEWS : "содержит"
+    PROJECTS ||--o{ DONATIONS : "получает"
+    PROJECTS ||--o{ VOLUNTEER_HOURS : "требует"
+
+    NEWS ||--o{ COMMENTS : "имеет"
