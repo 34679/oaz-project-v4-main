@@ -80,33 +80,66 @@ function logout() {
 // СЛАЙДЕР
 // ============================================
 function initSlider() {
-    const slider = document.querySelector('.news-slider');
-    if (!slider) return;
+    console.log('initSlider called'); // Для отладки
     
-    const slides = slider.querySelectorAll('.slide');
+    const slider = document.querySelector('.news-slider');
+    if (!slider) {
+        console.log('Slider not found');
+        return;
+    }
+    
+    const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const prevBtn = document.querySelector('.slider-arrow.prev');
     const nextBtn = document.querySelector('.slider-arrow.next');
     
-    if (!slides.length) return;
+    console.log('Slides found:', slides.length); // Для отладки
+    
+    if (slides.length === 0) return;
+    
+    // Принудительно устанавливаем стили
+    slider.style.display = 'flex';
+    slider.style.transition = 'transform 0.5s ease-in-out';
+    
+    // Устанавливаем ширину каждого слайда
+    slides.forEach((slide, i) => {
+        slide.style.flexShrink = '0';
+        slide.style.minWidth = '100%';
+        slide.style.width = '100%';
+        console.log('Slide', i, 'styled'); // Для отладки
+    });
+    
+    let currentIndex = 0;
     
     function showSlide(index) {
-        AppState.currentSlide = index;
-        slider.style.transform = `translateX(-${index * 100}%)`;
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
         
+        currentIndex = index;
+        const offset = -currentIndex * 100;
+        slider.style.transform = `translateX(${offset}%)`;
+        
+        // Обновляем точки
         dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
+            if (i === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
         });
+        
+        console.log('Showing slide:', currentIndex); // Для отладки
     }
     
     function nextSlide() {
-        showSlide((AppState.currentSlide + 1) % slides.length);
+        showSlide(currentIndex + 1);
     }
     
     function prevSlide() {
-        showSlide((AppState.currentSlide - 1 + slides.length) % slides.length);
+        showSlide(currentIndex - 1);
     }
     
+    // Добавляем обработчики
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
     if (nextBtn) nextBtn.addEventListener('click', nextSlide);
     
@@ -114,8 +147,20 @@ function initSlider() {
         dot.addEventListener('click', () => showSlide(index));
     });
     
-    // Автоматическое перелистывание
-    setInterval(nextSlide, 5000);
+    // Показываем первый слайд
+    showSlide(0);
+    
+    // Автоперелистывание
+    let autoInterval = setInterval(nextSlide, 5000);
+    
+    // Останавливаем автоперелистывание при наведении
+    const container = document.querySelector('.slider-container');
+    if (container) {
+        container.addEventListener('mouseenter', () => clearInterval(autoInterval));
+        container.addEventListener('mouseleave', () => {
+            autoInterval = setInterval(nextSlide, 5000);
+        });
+    }
 }
 
 // ============================================
