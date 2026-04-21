@@ -929,7 +929,7 @@ const API = {
                     name: 'Очистка побережья Балтики',
                     description: 'Масштабная акция по очистке берегов Балтийского моря от пластика',
                     full_description: 'Полное описание проекта по очистке побережья...',
-                    image: 'https://images.unsplash.com/photo-1618477461853-5f8dd68aa395?w=800',
+                    image: '/static/uploads/algae-marine-plants.jpg',
                     start_date: new Date().toISOString().split('T')[0],
                     end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     status: 'active',
@@ -944,7 +944,7 @@ const API = {
                     name: 'Спасение тюленей',
                     description: 'Программа реабилитации и спасения пострадавших тюленей',
                     full_description: 'Полное описание программы спасения тюленей...',
-                    image: 'https://images.unsplash.com/photo-1579165466741-7f35a4755657?w=800',
+                    image: '/static/uploads/beautiful-photo-sea-waves.jpg',
                     start_date: new Date().toISOString().split('T')[0],
                     end_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     status: 'active',
@@ -959,7 +959,7 @@ const API = {
                     name: 'Восстановление коралловых рифов',
                     description: 'Проект по восстановлению и выращиванию кораллов',
                     full_description: 'Полное описание проекта по восстановлению кораллов...',
-                    image: 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=800',
+                    image: '/static/uploads/seal-beach-dune-island-near-helgoland.jpg',
                     start_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     end_date: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     status: 'planned',
@@ -974,7 +974,7 @@ const API = {
                     name: 'Образовательные программы',
                     description: 'Обучение детей и взрослых экологии океана',
                     full_description: 'Полное описание образовательных программ...',
-                    image: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800',
+                    image: '/static/uploads/seal-beach-dune-island-near-helgoland.jpg',
                     start_date: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     end_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     status: 'completed',
@@ -997,7 +997,7 @@ const API = {
                     title: 'Очистка побережья началась!',
                     description: 'Стартовала масштабная акция по очистке берегов',
                     content: 'Сегодня началась масштабная акция по очистке побережья Балтийского моря. Волонтеры со всей области собрались, чтобы убрать мусор и пластик с пляжей.',
-                    image: 'https://images.unsplash.com/photo-1618477461853-5f8dd68aa395?w=400',
+                    image: '/static/uploads/algae-marine-plants.jpg',
                     category: 'news'
                 },
                 {
@@ -1006,7 +1006,7 @@ const API = {
                     title: 'Спасены первые тюлени',
                     description: 'Волонтеры спасли 5 тюленей за неделю',
                     content: 'Наша команда спасателей успешно реабилитировала 5 тюленей за прошедшую неделю. Все животные уже чувствуют себя хорошо.',
-                    image: 'https://images.unsplash.com/photo-1579165466741-7f35a4755657?w=400',
+                    image: '/static/uploads/seal-beach-dune-island-near-helgoland.jpg',
                     category: 'work'
                 },
                 {
@@ -1015,7 +1015,7 @@ const API = {
                     title: 'Нужны волонтеры!',
                     description: 'Приглашаем всех желающих присоединиться к проекту',
                     content: 'Для успешного проведения акции по очистке побережья нам нужны волонтеры. Присоединяйтесь!',
-                    image: 'https://images.unsplash.com/photo-1618477461853-5f8dd68aa395?w=400',
+                    image: '/static/uploads/seal-beach-dune-island-near-helgoland.jpg',
                     category: 'help'
                 }
             ];
